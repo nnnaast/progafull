@@ -2,7 +2,6 @@ import time
 import functools
 
 def timing_decorator(func):
-    """Декоратор, измеряющий время выполнения функции"""
     
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
