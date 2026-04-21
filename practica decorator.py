@@ -15,7 +15,6 @@ def timing_decorator(func):
     return wrapper
 
 def calculate_sum(n):
-    """Вычисляет сумму списка"""
     return sum(n)
 
 @timing_decorator
