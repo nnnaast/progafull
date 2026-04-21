@@ -7,7 +7,6 @@ users = {
 }
 
 def require_role(required_role):
-    """Декоратор, проверяющий наличие требуемой роли у пользователя"""
     
     def decorator(func):
         @functools.wraps(func)
