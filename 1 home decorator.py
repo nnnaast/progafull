@@ -3,7 +3,6 @@ import functools
 from datetime import datetime
 
 def log_args(func):
-    """Декоратор, который записывает в файл log.txt время вызова, имя функции, аргументы и возвращаемое значение"""
     
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
