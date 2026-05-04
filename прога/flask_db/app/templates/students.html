@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>📚 Список студентов</h1>
+
+<table border="1" cellpadding="10" style="border-collapse: collapse; width: 100%;">
+    <thead style="background-color: #4CAF50; color: white;">
+        <tr>
+            <th>Имя студента</th>
+            <th>Возраст</th>
+            <th>Оценка</th>
+            <th>Статус</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in students %}
+        <tr style="text-align: center;">
+            <td style="text-align: left;"><strong>{{ student.name }}</strong></td>
+            <td>{{ student.age }}</td>
+            <td>{{ student.grade }}</td>
+            <td style="{% if student.grade >= threshold %}color: green; font-weight: bold;{% else %}color: red; font-weight: bold;{% endif %}">
+                {% if student.grade >= threshold %}
+                    ✅ СДАЛ
+                {% else %}
+                    ❌ НЕ СДАЛ
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div style="margin-top: 20px; padding: 10px; background-color: #f0f0f0; border-radius: 5px;">
+    <p><strong>📊 Статистика:</strong></p>
+    <ul>
+        <li>📌 Порог сдачи: <strong>{{ threshold }}</strong> баллов</li>
+        <li>👨‍🎓 Всего студентов: <strong>{{ students|length }}</strong></li>
+        <li>✅ Сдало: <strong>{{ students|selectattr('grade', 'ge', threshold)|list|length }}</strong></li>
+        <li>❌ Не сдало: <strong>{{ students|selectattr('grade', 'lt', threshold)|list|length }}</strong></li>
+    </ul>
+</div>
+
+<p><small>💡 <strong>Подсказка:</strong> Изменить порог можно через URL: <code>?threshold=70</code></small></p>
+{% endblock %}

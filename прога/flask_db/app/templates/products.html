@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>🛒 Каталог товаров</h1>
+
+{% if products %}
+<table border="1" cellpadding="10" style="width: 100%; border-collapse: collapse;">
+    <thead style="background-color: #2196F3; color: white;">
+        <tr>
+            <th>Название</th>
+            <th>Цена (руб.)</th>
+            <th>Наличие</th>
+            <th>Статус цены</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.name }}</td>
+            <td style="{% if product.price > price_threshold %}color: red; font-weight: bold;{% endif %}">
+                {{ product.price }} ₽
+            </td>
+            <td>
+                {% if product.in_stock %}
+                    <span style="color: green;">✅ В наличии</span>
+                {% else %}
+                    <span style="color: orange;">⏳ Ожидается</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if product.price > price_threshold %}
+                    <span style="color: red;">⚠️ Высокая цена!</span>
+                {% else %}
+                    <span style="color: green;">✅ Обычная цена</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div style="margin-top: 20px; padding: 10px; background: #f0f0f0;">
+    <p><strong>Всего товаров:</strong> {{ products|length }}</p>
+    <p><strong>В наличии:</strong> {{ products|selectattr('in_stock', 'eq', True)|list|length }}</p>
+    <p><strong>Ожидается:</strong> {{ products|selectattr('in_stock', 'eq', False)|list|length }}</p>
+</div>
+{% else %}
+<p>Нет данных о товарах</p>
+{% endif %}
+
+<p><small>💡 Изменить порог цены: ?price_threshold=25000</small></p>
+{% endblock %}

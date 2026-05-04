@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>📰 Новости сайта</h1>
+
+<!-- Лидерские статьи -->
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 10px; margin-bottom: 30px; color: white;">
+    <h2 style="color: white;">⭐ Лидерские статьи</h2>
+    {% for article in leader_articles %}
+    <div style="background: rgba(255,255,255,0.9); color: #333; margin: 15px 0; padding: 15px; border-radius: 8px;">
+        <h3>{{ article.title }}</h3>
+        <p>
+            <strong>🏷️ Теги:</strong>
+            {% for tag in article.tags %}
+                <span style="background: #667eea; color: white; padding: 3px 10px; margin: 2px; border-radius: 15px; display: inline-block;">{{ tag }}</span>
+            {% endfor %}
+        </p>
+        <p>{{ article.content_preview }}</p>
+        <a href="#" style="color: #667eea;">Читать далее →</a>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Горячие новости -->
+<div style="background: #fff3e0; padding: 20px; border-radius: 10px; margin-bottom: 30px; border-left: 5px solid #ff9800;">
+    <h2 style="color: #ff9800;">🔥 Горячие новости</h2>
+    <ul style="list-style-type: none; padding-left: 0;">
+    {% for news in hot_news %}
+        <li style="padding: 10px; border-bottom: 1px solid #ffe0b2;">
+            <strong>{{ news.title }}</strong>
+            <p style="margin: 5px 0 0 20px; color: #666;">{{ news.short_description }}</p>
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+
+<!-- Обычные новости -->
+<div style="background: #e8f5e9; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+    <h2 style="color: #4CAF50;">📌 Обычные новости</h2>
+    <ul>
+    {% for news in regular_news %}
+        <li style="margin: 10px 0;">
+            <strong>{{ news.title }}</strong> — {{ news.short_description }}
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+
+<!-- Вопросы и ответы -->
+<div style="background: #e3f2fd; padding: 20px; border-radius: 10px;">
+    <h2 style="color: #2196F3;">❓ Вопросы и ответы</h2>
+    {% for item in qa_items %}
+    <div style="margin: 15px 0; padding: 10px; background: white; border-radius: 5px;">
+        <p><strong style="color: #2196F3;">Вопрос:</strong> {{ item.question }}</p>
+        <p><strong style="color: #4CAF50;">Ответ:</strong> {{ item.answer }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+<p style="margin-top: 20px; text-align: center; color: #999;"><small>Актуально на сегодня</small></p>
+{% endblock %}

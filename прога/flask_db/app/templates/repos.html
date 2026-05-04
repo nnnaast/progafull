@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>🐙 Репозитории GitHub</h1>
+
+<table border="1" cellpadding="10" style="border-collapse: collapse; width: 100%;">
+    <thead style="background-color: #24292e; color: white;">
+        <tr>
+            <th>Название</th>
+            <th>Язык</th>
+            <th>⭐ Звёзды</th>
+            <th>Статус</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for repo in repos %}
+        <tr>
+            <td><strong>{{ repo.name }}</strong></td>
+            <td>{{ repo.language }}</td>
+            <td>⭐ {{ repo.stars }}</td>
+            <td>
+                {% if repo.stars > stars_threshold %}
+                    <span style="background: gold; padding: 5px 10px; border-radius: 20px; font-weight: bold;">⭐ ПОПУЛЯРНЫЙ</span>
+                {% else %}
+                    <span style="color: gray;">📦 Обычный</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div style="margin-top: 20px; padding: 10px; background: #f0f0f0; border-radius: 5px;">
+    <p><strong>📊 Статистика:</strong></p>
+    <ul>
+        <li>🎯 Порог популярности: <strong>{{ stars_threshold }} ⭐</strong></li>
+        <li>📦 Всего репозиториев: <strong>{{ repos|length }}</strong></li>
+        <li>⭐ Популярных: <strong>{{ repos|selectattr('stars', 'greaterthan', stars_threshold)|list|length }}</strong></li>
+    </ul>
+</div>
+{% endblock %}

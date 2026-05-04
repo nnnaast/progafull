@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if title %}
+    <title>{{ title }} - Мой сайт</title>
+    {% else %}
+    <title>Flask CRUD - Учебный проект</title>
+    {% endif %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 0 5px;
+        }
+        nav a:hover {
+            background-color: #555;
+            border-radius: 3px;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="{{ url_for('index') }}">🏠 Главная</a>
+    <a href="{{ url_for('login') }}">🔑 Вход</a>
+    <a href="{{ url_for('users') }}">👥 Пользователи</a>
+    <a href="{{ url_for('students') }}">📚 Студенты</a>
+    <a href="{{ url_for('products') }}">🛒 Товары</a>
+    <a href="{{ url_for('news') }}">📰 Новости</a>
+    <a href="{{ url_for('repos') }}">🐙 Репозитории</a>
+</nav>
+
+<div class="container">
+    <h1>📱 Flask Учебный проект</h1>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div style="background-color: #ffebee; color: #c62828; padding: 10px; margin: 10px 0; border-radius: 5px; border-left: 5px solid #c62828;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+</div>
+
+<footer style="text-align: center; margin-top: 20px; padding: 10px; color: #999;">
+    <p>© 2026 Учебный проект Flask | Все задания выполнены ура ура ура солнечными зайчиками</p>
+</footer>
+
+</body>
+</html>
